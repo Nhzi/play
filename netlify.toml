@@ -4,7 +4,7 @@
 [build]
   base    = "arc/app"
   command = "npm run build"
-  # No `publish` — @netlify/plugin-nextjs handles the output directory.
+  publish = "arc/app/.next"
 
 [build.environment]
   NODE_VERSION = "20"
