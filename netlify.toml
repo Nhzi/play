@@ -4,7 +4,10 @@
 [build]
   base    = "arc/app"
   command = "npm run build"
-  publish = "arc/app/.next"
+  # `publish` is resolved relative to `base` — `.next` here means `arc/app/.next`.
+  # Netlify may emit a "publish pointing to base" warning; it's a false positive
+  # for monorepo subdirs and can be ignored.
+  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
