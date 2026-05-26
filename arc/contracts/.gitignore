@@ -1,0 +1,13 @@
+# Foundry / Solidity build output
+out/
+cache/
+broadcast/
+lib/forge-std/lib/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# OS noise
+.DS_Store

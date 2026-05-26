@@ -1,0 +1,7 @@
+Okay so this is the drill
+We are creating a base app, which is just a web app featuring classic games like tetris, uno, and maybe bounce but for touch screens and pc keyboards, bubble blasts also can work.
+
+User logs in with a signature from their base app, then they have a catalog of games to coose from, leaderboard coming soon, availability of light and dark mode, 
+Players can choose to mint their scores on chain
+OG nfts also coming soon.
+Accent color should dark purple and accent color should be tending towards fading red and peach

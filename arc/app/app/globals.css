@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/* Light theme — soft lavender surfaces, deep purple text. */
+:root {
+  --bg: #fdfaff;
+  --bg-elev: #ffffff;
+  --bg-muted: #f3ecff;
+  --border: #e7dcfb;
+  --fg: #1a0f2e;
+  --fg-muted: #5b4a7a;
+  --primary: #2d1b4e;
+  --primary-fg: #ffffff;
+  --accent-1: #ff6b6b;
+  --accent-2: #ff8a75;
+  --accent-3: #ffb088;
+  --ring: rgba(45, 27, 78, 0.35);
+  --shadow: 0 1px 2px rgba(45, 27, 78, 0.06), 0 8px 24px rgba(45, 27, 78, 0.08);
+}
+
+/* Dark theme — near-black with purple cast, peach/red accents. */
+.dark {
+  --bg: #15101f;
+  --bg-elev: #1f1731;
+  --bg-muted: #271d3d;
+  --border: #3a2c5a;
+  --fg: #f5eeff;
+  --fg-muted: #b9aad6;
+  --primary: #8a6ad9;
+  --primary-fg: #15101f;
+  --accent-1: #ff6b6b;
+  --accent-2: #ff8a75;
+  --accent-3: #ffb088;
+  --ring: rgba(255, 138, 117, 0.55);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elev: var(--bg-elev);
+  --color-bg-muted: var(--bg-muted);
+  --color-border-token: var(--border);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-accent-1: var(--accent-1);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-sans-stack);
+  --font-mono: var(--font-mono-stack);
+}
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans-stack), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  /* iOS Safari: prevent rubber-band scrolling jank on game pages. */
+  text-rendering: optimizeLegibility;
+}
+
+/* Reusable accent gradient (red → peach). */
+.bg-accent-gradient {
+  background-image: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 55%, var(--accent-3) 100%);
+}
+.text-accent-gradient {
+  background-image: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 55%, var(--accent-3) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Block scroll bounce on game pages */
+.no-overscroll { overscroll-behavior: contain; }
+
+/* Safe-area helpers for iOS notches */
+.safe-px { padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
+.safe-pb { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+.safe-pt { padding-top: max(0px, env(safe-area-inset-top)); }
+
+/* Snake canvas: ensure crisp 1px pixels on retina, no smoothing. */
+canvas.pixel { image-rendering: pixelated; image-rendering: crisp-edges; }
+
+/* Disable transitions when the user asks for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Catalog fold transition */
+.catalog-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 280ms ease;
+}
+.catalog-collapse[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.catalog-collapse > div { overflow: hidden; }
