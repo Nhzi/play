@@ -1,9 +1,0 @@
-[build]
-  # Tell Netlify exactly where the Next.js app is located from the root
-  base    = "Play/arc"
-  command = "npm run build"
-  publish = ".next"
-
-[build.environment]
-  NODE_VERSION = "20"
-  NPM_FLAGS    = "--no-audit --no-fund"

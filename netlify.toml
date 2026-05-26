@@ -1,0 +1,16 @@
+# Netlify build config for the Play Next.js app.
+# The app lives in arc/app/; the Foundry contracts in arc/contracts/ are not built here.
+
+[build]
+  base    = "arc/app"
+  command = "npm run build"
+  # No `publish` — @netlify/plugin-nextjs handles the output directory.
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS    = "--no-audit --no-fund"
+  # Public Arc Testnet config. Override in the Netlify UI for staging vs prod.
+  NEXT_PUBLIC_PLAY_ADDRESS = "0x9d5Ce0879a6604E1472da634478142c9A92C45a3"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
