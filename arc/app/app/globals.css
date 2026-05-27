@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
-/* Light theme — soft lavender surfaces, deep purple text. */
+/* Light theme — bright cream surfaces, deep blue text, blue accents. */
 :root {
-  --bg: #fdfaff;
+  --bg: #fffaf0;
   --bg-elev: #ffffff;
-  --bg-muted: #f3ecff;
-  --border: #e7dcfb;
-  --fg: #1a0f2e;
-  --fg-muted: #5b4a7a;
-  --primary: #2d1b4e;
+  --bg-muted: #fff3d6;
+  --border: #f1e3b8;
+  --fg: #0a1a3e;
+  --fg-muted: #4a5a8a;
+  --primary: #1d4ed8;
   --primary-fg: #ffffff;
-  --accent-1: #ff6b6b;
-  --accent-2: #ff8a75;
-  --accent-3: #ffb088;
-  --ring: rgba(45, 27, 78, 0.35);
-  --shadow: 0 1px 2px rgba(45, 27, 78, 0.06), 0 8px 24px rgba(45, 27, 78, 0.08);
+  --accent-1: #1d4ed8;
+  --accent-2: #3b82f6;
+  --accent-3: #06b6d4;
+  --ring: rgba(29, 78, 216, 0.35);
+  --shadow: 0 1px 2px rgba(29, 78, 216, 0.08), 0 8px 24px rgba(29, 78, 216, 0.10);
 }
 
 /* Dark theme — near-black with purple cast, peach/red accents. */
