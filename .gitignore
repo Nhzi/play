@@ -39,3 +39,5 @@ yarn-error.log*
 
 # WSL artifacts
 *:Zone.Identifier
+
+arcllm.txt
