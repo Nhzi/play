@@ -1,8 +1,10 @@
 # Play
 
-> Bringing users together onchain with Games.
+> Bringing users together onchain with Games. The front door to **Tangent Wallet**.
 
 A small onchain arcade on **Arc Testnet** (Circle's L1 — USDC is the gas token). Connect a wallet, register a one-time profile on-chain, play classic games, and mint your high scores. Tetris and Snake are live; Uno, Bounce, Bubble Blast, and Chat are queued.
+
+Play is the entry point into a broader ecosystem. The next product down the line is **Tangent Wallet** — a consumer wallet driven by natural language, where the identity you register here travels with you.
 
 ## Repo layout
 
@@ -11,11 +13,12 @@ A small onchain arcade on **Arc Testnet** (Circle's L1 — USDC is the gas token
 ├── arc/
 │   ├── app/          Next.js 16 + wagmi + viem frontend
 │   └── contracts/    Foundry — Play.sol (profiles + scores) + tests + deploy script
+├── about.txt         Long-form pitch (Play + Tangent Wallet ecosystem context)
 ├── netlify.toml      Netlify build config (base = arc/app)
 └── play.png          Project logo / preview
 ```
 
-The deeper docs live in [`arc/README.md`](arc/README.md). This file is the top-level entry point; everything app- and contract-specific is one level down.
+Deeper docs live in [`arc/README.md`](arc/README.md). This file is the top-level entry point; everything app- and contract-specific is one level down.
 
 ## Quickstart
 
@@ -47,6 +50,35 @@ The app targets Arc Testnet (chain id `5042002`). Any injected wallet that suppo
 | Bubble Blast | Queued   | —                                                                                     |
 | Chat         | Queued   | Offchain, tied to onchain identity.                                                   |
 
+## Landing page
+
+The landing page at `/` is intentionally a long, scrolling pitch, not a single-fold blurb. It walks a first-time visitor from the arcade into the wider ecosystem:
+
+1. **Hero** — floating accent blobs, animated gradient on the headline, a soft dotted grid, a Tangent foreshadow chip, and a scroll hint.
+2. **Catalog** — the six-game grid (two live, four queued).
+3. **How it feels** — three numbered steps (sign in → register profile → mint a run).
+4. **Identity** — wallet card mock with hover-tilt and a stat grid that highlights on hover.
+5. **Tangent Wallet teaser** — a self-cycling demo of natural-language transactions (`"Send 10 USDC to alex.eth"` → parsed intent → confirm).
+6. **AI roadmap** — six cards covering natural-language transfers, smart swaps/bridges, conversational portfolio, pre-sign safety checks, AI opponents, and personalized recs.
+7. **CTA** — final call-to-action with the accent gradient glow.
+
+### Animation primitives
+
+Two small client components power the motion across the page; both respect `prefers-reduced-motion` and skip on touch where relevant:
+
+- `components/CursorDot.tsx` — a dot + ring that follow the mouse with smooth lerping. The ring grows over interactive elements (anything tagged `[data-hover]`, plus links/buttons/inputs) and shrinks on press.
+- `components/Reveal.tsx` — an `IntersectionObserver` wrapper that fades and slides children in on first entry. Supports `from="up" | "down" | "left" | "right" | "none"` and a `delayMs` for staggering grids.
+
+Section-level effects live in `app/globals.css` under the `Landing page life` divider: `.float-blob`, `.hero-grid`, `.hero-gradient-anim`, `.pulse-dot`, `.scroll-hint`, `.tilt-card`, `.caret`, and the cursor + reveal classes.
+
+### Adding a hover-tracked element
+
+Any element that isn't already a link/button can opt into the cursor-ring highlight by adding `data-hover`:
+
+```tsx
+<span data-hover className="...">Hover me</span>
+```
+
 ## Deploying the contract
 
 ```bash
@@ -71,8 +103,26 @@ Netlify is wired up via `netlify.toml`: `base = arc/app`, `command = npm run bui
 
 ## Roadmap
 
+### Play
 - Global leaderboard page (cross-player rankings).
 - Uno, Bounce, Bubble Blast game engines.
 - Offchain Chat tied to onchain identity.
 - Gas sponsorship via Circle paymaster so the user pays nothing.
-- **AI integrations** — _to be detailed._ Planned surface area includes AI-assisted opponents, in-app chat assistants, and natural-language onchain actions. Specifics will be filled in as the integration design lands.
+
+### Tangent Wallet (the bigger picture)
+
+The Play profile you register here is meant to travel. **Tangent Wallet** is the consumer wallet coming next — same identity, more surface area. Surfaces in scope:
+
+- **Natural-language onchain actions.** "Send 10 USDC to alex.eth", "Swap 50 USDC for ETH at best rate", "Bridge 25 USDC from Arc to Base." The wallet parses intent, identifies tokens and recipients, and builds a transaction for one-tap confirmation.
+- **Conversational wallet.** Balances, transaction history, and portfolio insights asked in plain English.
+- **Pre-sign safety.** Anomaly detection, plain-English transaction explanations, and confirmation prompts before any high-risk action.
+- **Shared identity with Play.** The wallet that mints your Tetris score is the wallet Tangent uses — one onchain profile, both products.
+
+### AI integrations
+
+AI sits underneath both products and is what makes Tangent feel different from a button-driven wallet:
+
+- **In Tangent:** intent parsing (transfers, swaps, bridges), entity resolution (tokens, recipients), ambiguity handling, transaction parameter generation, conversational balance/portfolio queries, anomaly detection, and natural-language transaction explanations.
+- **In Play:** AI-assisted opponents tuned to player skill, personalized game and challenge recommendations from play history, and lightweight moderation tools as Chat scales.
+
+The shared thread: less typing of hex, more telling the app what you want.
